@@ -15,24 +15,19 @@ var gameState = {
 		this.bmd = null;
 
 		this.points = {
-        	'x': [ 32, 128, 256, 384, 512, 608 ],
-        	'y': [ 240, 240, 240, 240, 240, 240 ]
+        	'x': [ 32, 128, 256, 384, 512, 608, 66 ],
+        	'y': [ 320, 240, 240, 240, 240, 240, 55 ]
     	};
 
     	this.pi = 0;
-        this.path = [];
+    	this.path = [];
 
-        this.bmd = this.add.bitmapData(this.game.width, this.game.height);
-        this.bmd.addToWorld();
+    	this.bmd = this.add.bitmapData(this.game.width, this.game.height);
+    	this.bmd.addToWorld();
 
-        var py = this.points.y;
+    	var py = this.points.y;
 
-        for (var i = 0; i < py.length; i++)
-        {
-            py[i] = this.rnd.between(32, 432);
-        }
-
-        this.plot();
+    	this.plot();
 	},
 
 	plot: function() {
