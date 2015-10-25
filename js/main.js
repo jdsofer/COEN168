@@ -19,7 +19,7 @@ var gameState = {
         	'y': [ 320, 240, 240, 240, 240, 240, 55 ]
     	};
 
-    	this.pi = 0;
+    	this.position = 0;
     	this.path = [];
 
     	this.bmd = this.add.bitmapData(this.game.width, this.game.height);
@@ -57,14 +57,14 @@ var gameState = {
 
 	update: function() {
 		
-		this.mario.x = this.path[this.pi].x;
-        this.mario.y = this.path[this.pi].y;
+		this.mario.x = this.path[this.position].x;
+        this.mario.y = this.path[this.position].y;
 
-        this.pi++;
+        this.position++;
 
-            if (this.pi >= this.path.length)
+            if (this.position >= this.path.length)
             {
-                this.pi = 0;
+                this.position = 0;
             }
         
 	},
