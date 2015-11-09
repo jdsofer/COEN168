@@ -4,9 +4,9 @@ var gameState = {
 
 	preload: function() {
 
+		game.load.image('background', 'assets/space.jpg');
 		game.load.image('Briefcase', 'assets/briefcase.png');
 		game.load.image('ConveyorBelt', 'assets/ConveyorBelt.gif')
-		game.load.image('background', 'assets/space.jpg');
 
 	},
 
@@ -22,26 +22,28 @@ var gameState = {
 		this.briefcase.pivot.y = 0; //this.briefcase.height * 0.5
 
 		game.physics.startSystem(Phaser.Physics.P2JS);
+		game.physics.p2.enable([this.ledge,this.briefcase]);
 
-		game.physics.enable(this.briefcase, Phaser.Physics.P2JS);
-		game.physics.enable([this.ledge,this.briefcase], Phaser.Physics.P2JS);
+    	game.physics.p2.restitution = 0.5;
+    	game.physics.p2.gravity.y = 300;
 
-		this.ledge.body.immovable = true;
 		this.ledge.angle = 45;
 
+		/*
 		this.briefcase.body.velocity.setTo(50, 2000);
     	this.briefcase.body.collideWorldBounds = true;
 
     	//Briefcase bounce energy for the horizontal and vertical vectors (as an x,y point). "1" is 100% energy return.
     	this.briefcase.body.bounce.set(0.3);
     	this.briefcase.body.gravity.set(0, 180);
+    	*/
 
 	},
 
 	update: function() {
 
 		// Enable physics between the knocker and the ball
-    	game.physics.arcade.collide(this.ledge, this.briefcase);
+    	game.physics.p2.collide(this.ledge, this.briefcase);
         
 	}
 
