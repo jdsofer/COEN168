@@ -3,111 +3,33 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameWindow');
 var gameState = {
 
 	preload: function() {
+		
 		game.load.image('background', 'assets/space.jpg');
 		game.load.image('Briefcase', 'assets/briefcase.png');
+
 	},
 
 	create: function() {
+		
 		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.49, 0.21);
 		this.briefcase = this.game.add.sprite(0, 0, 'Briefcase');
+		
 		this.briefcase.anchor.set(0.5, 0.5);
 		this.briefcase.pivot.x = 0;
 		this.briefcase.pivot.y = 0; //this.briefcase.height * 0.5
-		
-		this.briefcase.angle = 0;
-		this.oldDegAngle = 0;
-		this.oldX = 0;
-		this.oldY = 0;
 
+		game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		this.bmd = null;
+		game.physics.enable(this.briefcase, Phaser.Physics.ARCADE);
 
-		this.points = {
-        	'x': [ -30, 250, 650, 500, 300, 130, 430, 488],
-        	'y': [ 200, 50, 70, 240, 120, 350, 460, 688]
-    	};
-
-    	this.position = 0;
-    	this.path = [];
-
-    	this.bmd = this.add.bitmapData(this.game.width, this.game.height);
-    	this.bmd.addToWorld();
-
-    	var py = this.points.y;
-
-    	this.plot();
-	},
-
-	plot: function() {
-
-		this.bmd.clear();
-
-		this.path = [];
-
-        var x = 1 / game.width;
-
-        for (var i = 0; i <= 1; i += x)
-        {
-            var px = this.math.catmullRomInterpolation(this.points.x, i);
-            var py = this.math.catmullRomInterpolation(this.points.y, i);
-
-            this.path.push( { x: px, y: py });
-
-            //this.bmd.rect(px, py, 1, 1, 'rgba(255, 255, 255, 1)'); //comment out after debugging
-        }
-
-        for (var p = 0; p < this.points.x.length; p++)
-        {
-            //this.bmd.rect(this.points.x[p]-3, this.points.y[p]-3, 6, 6, 'rgba(255, 0, 0, 1)'); //comment out after debugging
-        }
+		this.briefcase.body.velocity.setTo(200, 200);
+    	this.briefcase.body.collideWorldBounds = true;
+    	this.briefcase.body.bounce.set(0.2);
+    	this.briefcase.body.gravity.set(120, 180);
 
 	},
 
 	update: function() {
-		
-		this.briefcase.x = this.path[this.position].x;
-        this.briefcase.y = this.path[this.position].y;
-
-        this.position++;
-
-        var oldX = this.oldX;
-        var oldY = this.oldY;
-
-        var newRadAngle = Math.atan2((this.briefcase.y - oldY), (this.briefcase.x - oldX));
-        var newDegAngle = newRadAngle * 57.2957795131;
-
-        this.briefcase.rotation = (4 * (newDegAngle - this.oldDegAngle));
-
-        console.log(this.briefcase.rotation);
-        
-        if ((Math.round(this.briefcase.x) == 650) && (Math.round(this.briefcase.y) == 70)) {
-        	this.briefcase.rotation = (newDegAngle - this.oldDegAngle);
-        	console.log("here");
-        }
-
-		this.oldDegAngle = newDegAngle;
-		this.oldX = oldX;
-		this.oldY = oldY;
-
-        //console.log(this.briefcase.x, this.briefcase.y, this.briefcase.angle);
-        
-        /*
-        if ((this.briefcase.x >= 20 && this.briefcase.x < 600) && (this.briefcase.y > 0 && this.briefcase.y < 170)) {
-        	this.briefcase.angle += 0.3;
-        } else if ((this.briefcase.x >= 550 && this.briefcase.x < 700) && this.briefcase.y < 450) {
-        	this.briefcase.angle += 1;
-        } else if (this.briefcase.y < 450) {
-        	this.briefcase.angle += 0.7;
-        } else {
-        	this.briefcase.angle += 0.4;
-        }
-        */
-
-    	if (this.position >= this.path.length)
-    	{
-    		this.position = 0;
-    		this.briefcase.angle = -40;
-        }
         
 	}
 
