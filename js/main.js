@@ -3,33 +3,45 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameWindow');
 var gameState = {
 
 	preload: function() {
-		
-		game.load.image('background', 'assets/space.jpg');
+
 		game.load.image('Briefcase', 'assets/briefcase.png');
+		game.load.image('ConveyorBelt', 'assets/ConveyorBelt.gif')
+		game.load.image('background', 'assets/space.jpg');
 
 	},
 
 	create: function() {
 		
 		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.49, 0.21);
-		this.briefcase = this.game.add.sprite(0, 0, 'Briefcase');
+		this.briefcase = this.game.add.sprite(350, -220, 'Briefcase');
+		this.ledge = this.game.add.sprite(400, 300, 'ConveyorBelt');
 		
+		this.ledge.anchor.set(0.5, 0.5);
 		this.briefcase.anchor.set(0.5, 0.5);
 		this.briefcase.pivot.x = 0;
 		this.briefcase.pivot.y = 0; //this.briefcase.height * 0.5
 
-		game.physics.startSystem(Phaser.Physics.ARCADE);
+		game.physics.startSystem(Phaser.Physics.P2JS);
 
-		game.physics.enable(this.briefcase, Phaser.Physics.ARCADE);
+		game.physics.enable(this.briefcase, Phaser.Physics.P2JS);
+		game.physics.enable([this.ledge,this.briefcase], Phaser.Physics.P2JS);
 
-		this.briefcase.body.velocity.setTo(200, 200);
+		this.ledge.body.immovable = true;
+		this.ledge.angle = 45;
+
+		this.briefcase.body.velocity.setTo(50, 2000);
     	this.briefcase.body.collideWorldBounds = true;
-    	this.briefcase.body.bounce.set(0.2);
-    	this.briefcase.body.gravity.set(120, 180);
+
+    	//Briefcase bounce energy for the horizontal and vertical vectors (as an x,y point). "1" is 100% energy return.
+    	this.briefcase.body.bounce.set(0.3);
+    	this.briefcase.body.gravity.set(0, 180);
 
 	},
 
 	update: function() {
+
+		// Enable physics between the knocker and the ball
+    	game.physics.arcade.collide(this.ledge, this.briefcase);
         
 	}
 
