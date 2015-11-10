@@ -6,7 +6,7 @@ var gameState = {
 
 		game.load.image('background', 'assets/space.jpg');
 		game.load.image('Briefcase', 'assets/briefcase.png');
-		game.load.image('ConveyorBelt', 'assets/ConveyorBelt.gif')
+		game.load.image('ConveyorBelt', 'assets/ConveyorBelt.png')
 
 	},
 
@@ -15,32 +15,40 @@ var gameState = {
 		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.49, 0.21);
 
 		game.physics.startSystem(Phaser.Physics.P2JS);
-		game.physics.p2.gravity.y = 300;
+		game.physics.p2.gravity.y = 200;
 
 		var spriteMaterial = game.physics.p2.createMaterial('spriteMaterial');
     	var worldMaterial = game.physics.p2.createMaterial('worldMaterial');
-    	var contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, { restitution: 1.0 });
+    	var contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, { restitution: 0.1 });
 
     	game.physics.p2.setWorldMaterial(worldMaterial);
 
     	this.briefcase = this.game.add.sprite(400, 0, 'Briefcase');
-		this.ledge = this.game.add.sprite(400, 300, 'ConveyorBelt');
+    	this.leftLedge = this.game.add.sprite(200, 400, 'ConveyorBelt');
+		this.middleLedge = this.game.add.sprite(400, 300, 'ConveyorBelt');
+		this.rightLedge = this.game.add.sprite(600, 400, 'ConveyorBelt');
 
     	//  Enable for physics. This creates a default rectangular body.
-    	game.physics.p2.enable([this.briefcase, this.ledge]);
-    	this.ledge.body.static = true;
+    	game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
+    	this.middleLedge.body.static = true;
+    	this.leftLedge.body.static = true;
+    	this.rightLedge.body.static = true;
 
     	this.briefcase.body.setMaterial(spriteMaterial);
-   		this.ledge.body.setMaterial(spriteMaterial);
+   		this.leftLedge.body.setMaterial(worldMaterial);
+   		this.middleLedge.body.setMaterial(worldMaterial);
+   		this.rightLedge.body.setMaterial(worldMaterial);
 
-   		this.briefcase.body.data.gravityScale = 1;
+   		this.leftLedge.body.angle += 45;
+		this.middleLedge.body.angle += 45;
+		this.rightLedge.body.angle -= 45;
+
+		this.briefcase.body.data.gravityScale = 0.9;
+
+   		this.briefcase.body.data.gravityScale = 0.9;
 
 		//this.briefcase.anchor.set(0.5, 0.5);
 
-		this.ledge.body.angle += 45;
-
-		
-		//this.briefcase.body.velocity.setTo(50, 2000);
     	//this.briefcase.body.collideWorldBounds = true;
 
     	//Briefcase bounce energy for the horizontal and vertical vectors (as an x,y point). "1" is 100% energy return.
