@@ -13,37 +13,46 @@ var gameState = {
 	create: function() {
 		
 		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.49, 0.21);
-		this.briefcase = this.game.add.sprite(350, -220, 'Briefcase');
-		this.ledge = this.game.add.sprite(400, 300, 'ConveyorBelt');
-		
-		this.ledge.anchor.set(0.5, 0.5);
-		this.briefcase.anchor.set(0.5, 0.5);
-		this.briefcase.pivot.x = 0;
-		this.briefcase.pivot.y = 0; //this.briefcase.height * 0.5
 
 		game.physics.startSystem(Phaser.Physics.P2JS);
-		game.physics.p2.enable([this.ledge,this.briefcase]);
+		game.physics.p2.gravity.y = 300;
 
-    	game.physics.p2.restitution = 0.5;
-    	game.physics.p2.gravity.y = 300;
+		var spriteMaterial = game.physics.p2.createMaterial('spriteMaterial');
+    	var worldMaterial = game.physics.p2.createMaterial('worldMaterial');
+    	var contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, { restitution: 1.0 });
 
-		this.ledge.angle = 45;
+    	game.physics.p2.setWorldMaterial(worldMaterial);
 
-		/*
-		this.briefcase.body.velocity.setTo(50, 2000);
-    	this.briefcase.body.collideWorldBounds = true;
+    	this.briefcase = this.game.add.sprite(400, 0, 'Briefcase');
+		this.ledge = this.game.add.sprite(400, 300, 'ConveyorBelt');
+
+    	//  Enable for physics. This creates a default rectangular body.
+    	game.physics.p2.enable([this.briefcase, this.ledge]);
+    	this.ledge.body.static = true;
+
+    	this.briefcase.body.setMaterial(spriteMaterial);
+   		this.ledge.body.setMaterial(spriteMaterial);
+
+   		this.briefcase.body.data.gravityScale = 1;
+
+		//this.briefcase.anchor.set(0.5, 0.5);
+
+		this.ledge.body.angle += 45;
+
+		
+		//this.briefcase.body.velocity.setTo(50, 2000);
+    	//this.briefcase.body.collideWorldBounds = true;
 
     	//Briefcase bounce energy for the horizontal and vertical vectors (as an x,y point). "1" is 100% energy return.
-    	this.briefcase.body.bounce.set(0.3);
-    	this.briefcase.body.gravity.set(0, 180);
-    	*/
+    	//this.briefcase.body.bounce.set(0.3);
+    	//this.briefcase.body.gravity.set(0, 180);
 
 	},
 
 	update: function() {
 
 		// Enable physics between the knocker and the ball
-    	game.physics.p2.collide(this.ledge, this.briefcase);
+    	//game.physics.p2.collide(this.ledge, this.briefcase);
         
 	}
 
