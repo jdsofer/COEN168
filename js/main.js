@@ -41,11 +41,20 @@ var gameState = {
 
    		this.leftLedge.body.angle += 45;
 		this.middleLedge.body.angle += 45;
-		this.rightLedge.body.angle -= 45;
+		this.rightLedge.body.angle += 45;
 
 		this.briefcase.body.data.gravityScale = 0.9;
 
-   		this.briefcase.body.data.gravityScale = 0.9;
+		this.leftLedge.inputEnabled = true;
+		this.leftLedge.input.useHandCursor = true;
+
+		this.middleLedge.inputEnabled = true;
+		this.middleLedge.input.useHandCursor = true;
+
+		this.rightLedge.inputEnabled = true;
+		this.rightLedge.input.useHandCursor = true;
+
+   		//this.middleLedge.body.allowRotation = true;
 
 		//this.briefcase.anchor.set(0.5, 0.5);
 
@@ -58,6 +67,28 @@ var gameState = {
 	},
 
 	update: function() {
+
+
+		//Left ledge
+    	if (this.leftLedge.input.pointerOver()) {
+   			//this.leftLedge.body.angle = 0;
+		} else {
+			this.leftLedge.body.angle += 5;
+		}
+
+		//Middle ledge
+		if (this.middleLedge.input.pointerOver()) {
+   			//this.middleLedge.body.angle = 0;
+		} else {
+			this.middleLedge.body.angle += 5;
+		}
+
+		//Right ledge
+		if (this.rightLedge.input.pointerOver()) {
+   			//this.rightLedge.body.angle = 0;
+		} else {
+			this.rightLedge.body.angle += 5;
+		}
 
 		// Enable physics between the knocker and the ball
     	//game.physics.p2.collide(this.ledge, this.briefcase);
