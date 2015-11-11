@@ -60,6 +60,14 @@ var gameState = {
 		this.rightLedge.inputEnabled = true;
 		this.rightLedge.input.useHandCursor = true;
 
+		game.time.events.loop((Phaser.Timer.SECOND * 2), newFallingObject, this);
+
+		function newFallingObject() {
+    		this.briefcase = this.game.add.sprite(400, 0, 'Briefcase');
+    		game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
+    		this.briefcase.body.data.gravityScale = 0.9;
+		}
+
    		//this.middleLedge.body.allowRotation = true;
 
 		//this.briefcase.anchor.set(0.5, 0.5);
@@ -73,11 +81,6 @@ var gameState = {
 	},
 
 	update: function() {
-		//Math.floor(game.time.now / 1000) % 60;
-		//console.log(Math.floor(game.time.now/1000) % 60);
-		//if ((game.time.now/1000) == 0) {
-		//	console.log("yes");
-		//}
 
 		//Left ledge
     	if (this.leftLedge.input.pointerOver()) {
