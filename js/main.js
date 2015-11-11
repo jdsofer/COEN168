@@ -28,7 +28,7 @@ var gameState = {
 		this.middleLedge = this.game.add.sprite(400, 300, 'ConveyorBelt');
 		this.rightLedge = this.game.add.sprite(600, 400, 'ConveyorBelt');
 
-    	//  Enable for physics. This creates a default rectangular body.
+    	//  Enable for physics
     	game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
     	this.middleLedge.body.static = true;
     	this.leftLedge.body.static = true;
