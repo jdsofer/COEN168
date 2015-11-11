@@ -19,16 +19,23 @@ var gameState = {
 
 		var spriteMaterial = game.physics.p2.createMaterial('spriteMaterial');
     	var worldMaterial = game.physics.p2.createMaterial('worldMaterial');
-    	var contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, { restitution: 0.1 });
+    	var contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, { restitution: 0.05 });
 
     	game.physics.p2.setWorldMaterial(worldMaterial);
+
+    	//for (var i = 0; i < 50; i++) {
+    	//	this.briefcase = this.game.add.sprite(400, 0, 'Briefcase');
+    	//}
+    	if (game.time.now == 0) {
+    		console.log("yes")
+    	}
 
     	this.briefcase = this.game.add.sprite(400, 0, 'Briefcase');
     	this.leftLedge = this.game.add.sprite(200, 400, 'ConveyorBelt');
 		this.middleLedge = this.game.add.sprite(400, 300, 'ConveyorBelt');
 		this.rightLedge = this.game.add.sprite(600, 400, 'ConveyorBelt');
 
-    	//  Enable for physics
+    	//Enable for physics
     	game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
     	this.middleLedge.body.static = true;
     	this.leftLedge.body.static = true;
@@ -39,18 +46,17 @@ var gameState = {
    		this.middleLedge.body.setMaterial(worldMaterial);
    		this.rightLedge.body.setMaterial(worldMaterial);
 
-   		this.leftLedge.body.angle += 45;
-		this.middleLedge.body.angle += 45;
-		this.rightLedge.body.angle += 45;
-
 		this.briefcase.body.data.gravityScale = 0.9;
 
+		//Enable inpurt for left ledge
 		this.leftLedge.inputEnabled = true;
 		this.leftLedge.input.useHandCursor = true;
 
+		//Enable inpurt for middle ledge
 		this.middleLedge.inputEnabled = true;
 		this.middleLedge.input.useHandCursor = true;
 
+		//Enable inpurt for right ledge
 		this.rightLedge.inputEnabled = true;
 		this.rightLedge.input.useHandCursor = true;
 
@@ -67,7 +73,11 @@ var gameState = {
 	},
 
 	update: function() {
-
+		//Math.floor(game.time.now / 1000) % 60;
+		//console.log(Math.floor(game.time.now/1000) % 60);
+		//if ((game.time.now/1000) == 0) {
+		//	console.log("yes");
+		//}
 
 		//Left ledge
     	if (this.leftLedge.input.pointerOver()) {
@@ -90,8 +100,7 @@ var gameState = {
 			this.rightLedge.body.angle += 5;
 		}
 
-		// Enable physics between the knocker and the ball
-    	//game.physics.p2.collide(this.ledge, this.briefcase);
+		//Enable physics between the knocker and the ball
         
 	}
 
