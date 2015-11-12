@@ -1,18 +1,21 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameWindow');
 
+var briefcasesArray = [];
+
 var gameState = {
 
 	preload: function() {
 
-		game.load.image('background', 'assets/space.jpg');
+		game.load.image('background', 'assets/test-background.png');
 		game.load.image('Briefcase', 'assets/briefcase.png');
 		game.load.image('ConveyorBelt', 'assets/ConveyorBelt.png')
 
 	},
 
 	create: function() {
-		
-		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.49, 0.21);
+
+		//this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.49, 0.21);
+		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5, 0.5);
 
 		game.physics.startSystem(Phaser.Physics.P2JS);
 		game.physics.p2.gravity.y = 200;
@@ -23,17 +26,13 @@ var gameState = {
 
     	game.physics.p2.setWorldMaterial(worldMaterial);
 
-    	//for (var i = 0; i < 50; i++) {
-    	//	this.briefcase = this.game.add.sprite(400, 0, 'Briefcase');
-    	//}
-    	if (game.time.now == 0) {
-    		console.log("yes")
-    	}
-
     	this.briefcase = this.game.add.sprite(400, 0, 'Briefcase');
     	this.leftLedge = this.game.add.sprite(200, 400, 'ConveyorBelt');
 		this.middleLedge = this.game.add.sprite(400, 300, 'ConveyorBelt');
 		this.rightLedge = this.game.add.sprite(600, 400, 'ConveyorBelt');
+
+		//Hold all briefcases in an Array
+		briefcasesArray[0] = this.briefcase;
 
     	//Enable for physics
     	game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
@@ -66,6 +65,7 @@ var gameState = {
     		this.briefcase = this.game.add.sprite(400, 0, 'Briefcase');
     		game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
     		this.briefcase.body.data.gravityScale = 0.9;
+    		briefcasesArray.push(this.briefcase);
 		}
 
    		//this.middleLedge.body.allowRotation = true;
@@ -82,6 +82,34 @@ var gameState = {
 
 	update: function() {
 
+		if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+    	{
+    		this.leftLedge.body.angle -= 5;
+    		this.middleLedge.body.angle -= 5;
+    		this.rightLedge.body.angle -= 5;
+    	}
+    	else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+    	{
+    		this.leftLedge.body.angle += 5;
+    		this.middleLedge.body.angle += 5;
+    		this.rightLedge.body.angle += 5;
+    	}
+    	else
+    	{
+    		this.leftLedge.body.angle += 0;
+    		this.middleLedge.body.angle += 0;
+    		this.rightLedge.body.angle += 0;
+    	}
+
+    	for (var i = 0; i < briefcasesArray.length; i++) {
+    		if (Math.round(briefcasesArray[i].y) > 540) {
+    			briefcasesArray[i].kill();
+    			briefcasesArray.splice(i, 1);
+
+    		}
+    	}
+
+    	/*
 		//Left ledge
     	if (this.leftLedge.input.pointerOver()) {
    			//this.leftLedge.body.angle = 0;
@@ -102,6 +130,7 @@ var gameState = {
 		} else {
 			this.rightLedge.body.angle += 5;
 		}
+		*/
 
 		//Enable physics between the knocker and the ball
         
