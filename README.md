@@ -23,12 +23,12 @@ Going into this project, our group knew very little about game development and e
 - Created the initial enviroment, including the "preoload", "create", and "update" functions: 1 hour.
 - Added assets (background image, breifcase, ledges) to the "preload" function and instantiated these objects in the "create" function: 2 hours.
 - Used ARCADE engine to render collisions between falling object and ledges: 4 hours.
-- ARCADE engined turned out to be too limited for what we needed (angled collisions); rewrote the game using the P2 physics engine: 5-7 hours.
-- Wrote code to use keyboard input, i.e., left and right arrows to rotate the ledges: 1-2 hours.
+- ARCADE engine turned out to be too limited for what we needed (angled collisions); rewrote the game using the P2 physics engine: 5-7 hours.
+- Wrote code to get keyboard input, i.e., the left and right arrows to rotate the ledges: 1-2 hours.
 - Wrote function to generate new briefcase objects at a fixed interval: 2 hours.
 - Added logic to remove falling objects from the game once they hit the ground: 1-2 hours.
 
-- Completed various other tasks, such as cleaning up the code, connecting modules, and photoshopping sprite images: 3-4 hours.
+- Completed various other tasks, such as cleaning up the code, connecting modules, and modifying sprite images: 3-4 hours.
 - Debugging: 8-10 hours.
 
 ## To-do List
