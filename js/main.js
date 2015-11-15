@@ -8,7 +8,7 @@ var gameState = {
 
 		game.load.image('background', 'assets/test-background.png');
 		game.load.image('Briefcase', 'assets/briefcase.png');
-		game.load.image('ConveyorBelt', 'assets/ConveyorBelt.png')
+		game.load.image('ConveyorBelt', 'assets/ConveyorBelt.png');
 
 	},
 
