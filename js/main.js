@@ -33,7 +33,7 @@ var gameState = {
 
 		var spriteMaterial = game.physics.p2.createMaterial('spriteMaterial');
     	var worldMaterial = game.physics.p2.createMaterial('worldMaterial');
-    	var contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, { restitution: 0.05 });
+    	var contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, { restitution: 0.6 });
 
     	game.physics.p2.setWorldMaterial(worldMaterial);
 
@@ -57,7 +57,8 @@ var gameState = {
 
     	//Enable for physics
     	game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
-    	this.middleLedge.body.static = true;
+    	
+        this.middleLedge.body.static = true;
     	this.leftLedge.body.static = true;
     	this.rightLedge.body.static = true;
 
@@ -66,7 +67,7 @@ var gameState = {
    		this.middleLedge.body.setMaterial(worldMaterial);
    		this.rightLedge.body.setMaterial(worldMaterial);
 
-		this.briefcase.body.data.gravityScale = 0.9;
+		this.briefcase.body.data.gravityScale = 3.5;
 
 		//Enable inpurt for left ledge
 		this.leftLedge.inputEnabled = true;
@@ -83,10 +84,14 @@ var gameState = {
 		game.time.events.loop((Phaser.Timer.SECOND * 3), newFallingObject, this);
 
 		function newFallingObject() {
+
             randomNumber = (Math.round(Math.random() * 100) % 4);
     		this.briefcase = this.game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
+
     		game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
-    		this.briefcase.body.data.gravityScale = 0.9;
+            this.briefcase.body.setMaterial(spriteMaterial);
+    		this.briefcase.body.data.gravityScale = 3.5;
+
     		currentBriefcases.push(this.briefcase);
 		}
 
