@@ -3,6 +3,8 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameWindow');
 var briefcaseChoices = ['redBriefcase', 'blueBriefcase', 'greenBriefcase', 'yellowBriefcase'];
 var currentBriefcases = [];
 var randomNumber = 0;
+var counter = 0;
+var livesLeft = 3;
 
 var gameState = {
 
@@ -85,6 +87,8 @@ var gameState = {
 
 		function newFallingObject() {
 
+            //console.log(counter); //Debugging
+
             randomNumber = (Math.round(Math.random() * 100) % 4);
     		this.briefcase = this.game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
 
@@ -99,20 +103,24 @@ var gameState = {
 
 	update: function() {
 
-		if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-    	{
+        if (livesLeft == 0) {
+            console.log(counter);
+            console.log(livesLeft);
+        }
+
+		if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
     		this.leftLedge.body.angle -= 5;
     		this.middleLedge.body.angle -= 5;
     		this.rightLedge.body.angle -= 5;
     	}
-    	else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-    	{
+
+    	else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
     		this.leftLedge.body.angle += 5;
     		this.middleLedge.body.angle += 5;
     		this.rightLedge.body.angle += 5;
     	}
-    	else
-    	{
+
+    	else {
     		this.leftLedge.body.angle += 0;
     		this.middleLedge.body.angle += 0;
     		this.rightLedge.body.angle += 0;
@@ -120,6 +128,58 @@ var gameState = {
 
     	for (var i = 0; i < currentBriefcases.length; i++) {
     		if (Math.round(currentBriefcases[i].y) > 540) {
+
+                //console.log(currentBriefcases[i].x); //Debugging
+
+                if ((Math.round(currentBriefcases[i].x) > 30) && (Math.round(currentBriefcases[i].x) < 170)) {
+                    
+                    console.log(currentBriefcases[i].key);
+                    if (currentBriefcases[i].key == 'redBriefcase') {
+                        counter += 1;
+                    }
+
+                    else {
+                        livesLeft -=1;
+                    }
+
+                }
+
+                else if ((Math.round(currentBriefcases[i].x) > 210) && (Math.round(currentBriefcases[i].x) < 350)) {
+                    
+                    if (currentBriefcases[i].key == 'blueBriefcase') {
+                        counter += 1;
+                    }
+
+                    else {
+                        livesLeft -=1;
+                    }
+
+                }
+
+                else if ((Math.round(currentBriefcases[i].x) > 430) && (Math.round(currentBriefcases[i].x) < 570)) {
+                    
+                    if (currentBriefcases[i].key == 'greenBriefcase') {
+                        counter += 1;
+                    }
+
+                    else {
+                        livesLeft -=1;
+                    }
+
+                }
+
+                else if ((Math.round(currentBriefcases[i].x) > 650) && (Math.round(currentBriefcases[i].x) < 760)) {
+                    
+                    if (currentBriefcases[i].key == 'yellowBriefcase') {
+                        counter += 1;
+                    }
+
+                    else {
+                        livesLeft -=1;
+                    }
+
+                }
+
     			currentBriefcases[i].kill();
     			currentBriefcases.splice(i, 1);
 
