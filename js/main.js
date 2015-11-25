@@ -1,14 +1,25 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameWindow');
 
-var briefcasesArray = [];
+var briefcaseChoices = ['redBriefcase', 'blueBriefcase', 'greenBriefcase', 'yellowBriefcase'];
+var currentBriefcases = [];
+var randomNumber = 0;
 
 var gameState = {
 
 	preload: function() {
 
 		game.load.image('background', 'assets/test-background.png');
-		game.load.image('Briefcase', 'assets/briefcase.png');
-		game.load.image('ConveyorBelt', 'assets/ConveyorBelt.png');
+        game.load.image('ConveyorBelt', 'assets/ConveyorBelt.png');
+
+        game.load.image('redBriefcase', 'assets/redBriefcase.png');
+        game.load.image('blueBriefcase', 'assets/blueBriefcase.png');
+        game.load.image('greenBriefcase', 'assets/greenBriefcase.png');
+        game.load.image('yellowBriefcase', 'assets/yellowBriefcase.png');
+
+        game.load.image('redBaggageCart', 'assets/redBaggageCart.png');
+        game.load.image('blueBaggageCart', 'assets/blueBaggageCart.png');
+        game.load.image('greenBaggageCart', 'assets/greenBaggageCart.png');
+        game.load.image('yellowBaggageCart', 'assets/yellowBaggageCart.png');
 
 	},
 
@@ -26,13 +37,23 @@ var gameState = {
 
     	game.physics.p2.setWorldMaterial(worldMaterial);
 
-    	this.briefcase = this.game.add.sprite(400, 0, 'Briefcase');
+        randomNumber = (Math.round(Math.random() * 100) % 4);
+
+    	this.briefcase = this.game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
+
+        //Load ledges
     	this.leftLedge = this.game.add.sprite(200, 400, 'ConveyorBelt');
 		this.middleLedge = this.game.add.sprite(400, 300, 'ConveyorBelt');
 		this.rightLedge = this.game.add.sprite(600, 400, 'ConveyorBelt');
 
+        //Load bins
+        this.redBaggageCart = this.game.add.sprite(-30, 500, 'redBaggageCart');
+        this.blueBaggageCart = this.game.add.sprite(180, 500, 'blueBaggageCart');
+        this.greenBaggageCart = this.game.add.sprite(380, 500, 'greenBaggageCart');
+        this.yellowBaggageCart = this.game.add.sprite(580, 500, 'yellowBaggageCart');
+
 		//Hold all briefcases in an Array
-		briefcasesArray[0] = this.briefcase;
+		currentBriefcases[0] = this.briefcase;
 
     	//Enable for physics
     	game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
@@ -59,13 +80,14 @@ var gameState = {
 		this.rightLedge.inputEnabled = true;
 		this.rightLedge.input.useHandCursor = true;
 
-		game.time.events.loop((Phaser.Timer.SECOND * 2), newFallingObject, this);
+		game.time.events.loop((Phaser.Timer.SECOND * 3), newFallingObject, this);
 
 		function newFallingObject() {
-    		this.briefcase = this.game.add.sprite(400, 0, 'Briefcase');
+            randomNumber = (Math.round(Math.random() * 100) % 4);
+    		this.briefcase = this.game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
     		game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
     		this.briefcase.body.data.gravityScale = 0.9;
-    		briefcasesArray.push(this.briefcase);
+    		currentBriefcases.push(this.briefcase);
 		}
 
 	},
@@ -91,10 +113,10 @@ var gameState = {
     		this.rightLedge.body.angle += 0;
     	}
 
-    	for (var i = 0; i < briefcasesArray.length; i++) {
-    		if (Math.round(briefcasesArray[i].y) > 540) {
-    			briefcasesArray[i].kill();
-    			briefcasesArray.splice(i, 1);
+    	for (var i = 0; i < currentBriefcases.length; i++) {
+    		if (Math.round(currentBriefcases[i].y) > 540) {
+    			currentBriefcases[i].kill();
+    			currentBriefcases.splice(i, 1);
 
     		}
     	}
