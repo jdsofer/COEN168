@@ -24,7 +24,6 @@ var gameState={
 	},
 
 	create: function(){
-
 		//this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.49, 0.21);
 		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5, 0.5);
 
