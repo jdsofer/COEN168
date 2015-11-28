@@ -10,7 +10,7 @@ var gameState = {
 
 	preload: function() {
 
-		game.load.image('background', 'assets/test-background.png');
+		game.load.image('background', 'assets/background.jpg');
         game.load.image('ConveyorBelt', 'assets/ConveyorBelt.png');
 
         game.load.image('redBriefcase', 'assets/redBriefcase.png');
@@ -28,7 +28,7 @@ var gameState = {
 	create: function() {
 
 		//this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.49, 0.21);
-		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5, 0.5);
+		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.6, 0.5);
 
 		game.physics.startSystem(Phaser.Physics.P2JS);
 		game.physics.p2.gravity.y = 200;
