@@ -8,19 +8,9 @@ var livesLeft=3;
 
 var gameState={
 
-<<<<<<< HEAD
-		game.load.image('background', 'assets/background.jpg');
-        game.load.image('ConveyorBelt', 'assets/ConveyorBelt.png');
-
-        game.load.image('redBriefcase', 'assets/redBriefcase.png');
-        game.load.image('blueBriefcase', 'assets/blueBriefcase.png');
-        game.load.image('greenBriefcase', 'assets/greenBriefcase.png');
-        game.load.image('yellowBriefcase', 'assets/yellowBriefcase.png');
-=======
 	preload: function(){
-		game.load.image('background', 'assets/test-background.png');
+		game.load.image('background', 'assets/background.jpg');
 		game.load.image('conveyorBelt', 'assets/conveyorBelt.png');
->>>>>>> origin/master
 
 		game.load.image('redBriefcase', 'assets/redBriefcase.png');
 		game.load.image('blueBriefcase', 'assets/blueBriefcase.png');
@@ -76,7 +66,7 @@ var gameState={
 		this.middleLedge.body.setMaterial(worldMaterial);
 		this.rightLedge.body.setMaterial(worldMaterial);
 
-		this.briefcase.body.data.gravityScale=2.0;
+		this.briefcase.body.data.gravityScale=3.5;
 
 		//Enable input for left ledge
 		this.leftLedge.inputEnabled=true;
@@ -98,7 +88,7 @@ var gameState={
 
 			game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
 			this.briefcase.body.setMaterial(spriteMaterial);
-			this.briefcase.body.data.gravityScale=2.0;
+			this.briefcase.body.data.gravityScale=3.5;
 
 			currentBriefcases.push(this.briefcase);
 		}
