@@ -43,3 +43,5 @@ Going into this project, our group knew very little about game development and e
 - Right now most game images (such as the background) are borrowed from the web, but we plan to draw our own for the final demo.
 - Potential: Change from briefcase to a more circular object, e.g., a marble or baseball.
 - Potential: Add a high scores list.
+
+Special thanks to Tiffany Lu for the background image :)

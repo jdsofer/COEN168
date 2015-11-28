@@ -46,10 +46,10 @@ var gameState={
 		this.rightLedge=this.game.add.sprite(600, 400, 'conveyorBelt');
 
 		//Load bins
-		this.redBaggageCart=this.game.add.sprite(-30, 500, 'redBaggageCart');
-		this.blueBaggageCart=this.game.add.sprite(180, 500, 'blueBaggageCart');
-		this.greenBaggageCart=this.game.add.sprite(380, 500, 'greenBaggageCart');
-		this.yellowBaggageCart=this.game.add.sprite(580, 500, 'yellowBaggageCart');
+		this.redBaggageCart=this.game.add.sprite(10, 560, 'redBaggageCart');
+		this.blueBaggageCart=this.game.add.sprite(200, 560, 'blueBaggageCart');
+		this.greenBaggageCart=this.game.add.sprite(410, 560, 'greenBaggageCart');
+		this.yellowBaggageCart=this.game.add.sprite(600, 560, 'yellowBaggageCart');
 
 		//Hold all briefcases in an array
 		currentBriefcases[0]=this.briefcase;
@@ -122,7 +122,7 @@ var gameState={
 			if(Math.round(currentBriefcases[i].y)>540){
 				//console.log(currentBriefcases[i].x); //Debugging
 
-				if((Math.round(currentBriefcases[i].x)>30)&&(Math.round(currentBriefcases[i].x)<170)){
+				if((Math.round(currentBriefcases[i].x)>10)&&(Math.round(currentBriefcases[i].x)<190)){
 					console.log(currentBriefcases[i].key);
 					if(currentBriefcases[i].key=='redBriefcase')
 						counter+=1;
@@ -131,7 +131,7 @@ var gameState={
 						livesLeft-=1;
 				}
 
-				else if((Math.round(currentBriefcases[i].x)>210)&&(Math.round(currentBriefcases[i].x)<350)){
+				else if((Math.round(currentBriefcases[i].x)>200)&&(Math.round(currentBriefcases[i].x)<380)){
 					if(currentBriefcases[i].key=='blueBriefcase')
 						counter+=1;
 
@@ -139,7 +139,7 @@ var gameState={
 						livesLeft-=1;
 				}
 
-				else if((Math.round(currentBriefcases[i].x)>430)&&(Math.round(currentBriefcases[i].x)<570)){
+				else if((Math.round(currentBriefcases[i].x)>410)&&(Math.round(currentBriefcases[i].x)<590)){
 					if(currentBriefcases[i].key=='greenBriefcase')
 						counter+=1;
 
@@ -147,7 +147,7 @@ var gameState={
 						livesLeft-=1;
 				}
 
-				else if((Math.round(currentBriefcases[i].x)>650)&&(Math.round(currentBriefcases[i].x)<760)){
+				else if((Math.round(currentBriefcases[i].x)>600)&&(Math.round(currentBriefcases[i].x)<780)){
 					if(currentBriefcases[i].key=='yellowBriefcase')
 						counter+=1;
 
