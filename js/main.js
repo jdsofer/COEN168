@@ -1,6 +1,7 @@
 var game=new Phaser.Game(800, 600, Phaser.AUTO, 'gameWindow');
 
 var briefcaseChoices=['redBriefcase', 'blueBriefcase', 'greenBriefcase', 'yellowBriefcase'];
+var lifeIcons=[];
 var currentBriefcases=[];
 var randomNumber=0;
 var counter=0;
@@ -11,6 +12,7 @@ var gameState={
 	preload: function(){
 		game.load.image('background', 'assets/background.jpg');
 		game.load.image('conveyorBelt', 'assets/conveyorBelt.png');
+		game.load.image('lifeIcon', 'assets/lifeIcon.png');
 
 		game.load.image('redBriefcase', 'assets/redBriefcase.png');
 		game.load.image('blueBriefcase', 'assets/blueBriefcase.png');
@@ -24,7 +26,7 @@ var gameState={
 	},
 
 	create: function(){
-		//this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.49, 0.21);
+
 		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.6, 0.5);
 
 		game.physics.startSystem(Phaser.Physics.P2JS);
@@ -39,6 +41,14 @@ var gameState={
 		randomNumber=(Math.round(Math.random()*100)%4);
 
 		this.briefcase=this.game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
+
+		//Load lives
+		var xPosition = 30;
+		for (var i = 0; i < 3; i++) {
+			this.life=this.game.add.sprite(xPosition, 30, 'lifeIcon');
+			xPosition += 50;
+			lifeIcons.push(this.life);
+		}
 
 		//Load ledges
 		this.leftLedge=this.game.add.sprite(200, 400, 'conveyorBelt');
@@ -124,35 +134,51 @@ var gameState={
 
 				if((Math.round(currentBriefcases[i].x)>10)&&(Math.round(currentBriefcases[i].x)<190)){
 					console.log(currentBriefcases[i].key);
-					if(currentBriefcases[i].key=='redBriefcase')
+					if(currentBriefcases[i].key=='redBriefcase') {
 						counter+=1;
+					}
 
-					else
+					else {
+						lifeIcons[livesLeft-1].kill();
+						lifeIcons.splice(livesLeft-1, 1);
 						livesLeft-=1;
+					}
 				}
 
 				else if((Math.round(currentBriefcases[i].x)>200)&&(Math.round(currentBriefcases[i].x)<380)){
-					if(currentBriefcases[i].key=='blueBriefcase')
+					if(currentBriefcases[i].key=='blueBriefcase') {
 						counter+=1;
+					}
 
-					else
+					else {
+						lifeIcons[livesLeft-1].kill();
+						lifeIcons.splice(livesLeft-1, 1);
 						livesLeft-=1;
+					}
 				}
 
 				else if((Math.round(currentBriefcases[i].x)>410)&&(Math.round(currentBriefcases[i].x)<590)){
-					if(currentBriefcases[i].key=='greenBriefcase')
+					if(currentBriefcases[i].key=='greenBriefcase') {
 						counter+=1;
+					}
 
-					else
+					else {
+						lifeIcons[livesLeft-1].kill();
+						lifeIcons.splice(livesLeft-1, 1);
 						livesLeft-=1;
+					}
 				}
 
 				else if((Math.round(currentBriefcases[i].x)>600)&&(Math.round(currentBriefcases[i].x)<780)){
-					if(currentBriefcases[i].key=='yellowBriefcase')
+					if(currentBriefcases[i].key=='yellowBriefcase') {
 						counter+=1;
+					}
 
-					else
+					else {
+						lifeIcons[livesLeft-1].kill();
+						lifeIcons.splice(livesLeft-1, 1);
 						livesLeft-=1;
+					}
 				}
 
 				currentBriefcases[i].kill();
