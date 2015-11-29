@@ -33,15 +33,15 @@ Going into this project, our group knew very little about game development and e
 
 ## To-do List
 
-- Make the falling objects (briefcases) be one of four different colors.
-- Add four different colored bins to catch the falling objects.
-- Add score / counter for briefcases that fall into the right bin.
+- Make the falling objects (briefcases) be one of four different colors. (done!)
+- Add four different colored bins to catch the falling objects. (done!)
+- Add score / counter for briefcases that fall into the right bin. (done!)
 - Have a game over screen appear after three briefcases miss their correct bin.
 - Add a main menu screen.
-- Add mobile touch support.
+- Add mobile touch support. (done?)
 - Add game music.
-- Right now most game images (such as the background) are borrowed from the web, but we plan to draw our own for the final demo.
-- Potential: Change from briefcase to a more circular object, e.g., a marble or baseball.
+- Right now most game images (such as the background) are borrowed from the web, but we plan to draw our own for the final demo. (done!)
+- Potential: Change from briefcase to a more circular object, e.g., a marble or baseball. (done?)
 - Potential: Add a high scores list.
 
 Special thanks to Tiffany Lu for the background image :)

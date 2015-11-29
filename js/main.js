@@ -6,6 +6,7 @@ var currentBriefcases=[];
 var randomNumber=0;
 var counter=0;
 var livesLeft=3;
+var scoreText;
 
 var gameState={
 
@@ -35,12 +36,14 @@ var gameState={
 		var spriteMaterial=game.physics.p2.createMaterial('spriteMaterial');
 		var worldMaterial=game.physics.p2.createMaterial('worldMaterial');
 		var contactMaterial=game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, {restitution: 0.6});
-
 		game.physics.p2.setWorldMaterial(worldMaterial);
 
 		randomNumber=(Math.round(Math.random()*100)%4);
-
 		this.briefcase=this.game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
+
+		//Load Score
+		scoreText = game.add.text(100, 100, "Score: 0", {font: "35px Arial", fill: "#000000", align: "center"});
+		scoreText.anchor.setTo(0.5, 0.5);
 
 		//Load lives
 		var xPosition = 30;
@@ -136,6 +139,7 @@ var gameState={
 					console.log(currentBriefcases[i].key);
 					if(currentBriefcases[i].key=='redBriefcase') {
 						counter+=1;
+						scoreText.setText("Score: " + counter);
 					}
 
 					else {
@@ -148,6 +152,7 @@ var gameState={
 				else if((Math.round(currentBriefcases[i].x)>200)&&(Math.round(currentBriefcases[i].x)<380)){
 					if(currentBriefcases[i].key=='blueBriefcase') {
 						counter+=1;
+						scoreText.setText("Score: " + counter);
 					}
 
 					else {
@@ -160,6 +165,7 @@ var gameState={
 				else if((Math.round(currentBriefcases[i].x)>410)&&(Math.round(currentBriefcases[i].x)<590)){
 					if(currentBriefcases[i].key=='greenBriefcase') {
 						counter+=1;
+						scoreText.setText("Score: " + counter);
 					}
 
 					else {
@@ -172,6 +178,7 @@ var gameState={
 				else if((Math.round(currentBriefcases[i].x)>600)&&(Math.round(currentBriefcases[i].x)<780)){
 					if(currentBriefcases[i].key=='yellowBriefcase') {
 						counter+=1;
+						scoreText.setText("Score: " + counter);
 					}
 
 					else {
@@ -183,6 +190,7 @@ var gameState={
 
 				currentBriefcases[i].kill();
 				currentBriefcases.splice(i, 1);
+				
 			}
 	}
 };
