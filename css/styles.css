@@ -1,9 +1,81 @@
-body{
+*{
 	margin: 0;
 	padding: 0;
+}
+body {
+	font-size: 20px;
+	font-family: arial, sans-serif;
 }
 
 #gameWindow{
 	margin: auto;
 	width: 800px;
+}
+.animate {
+	height: 600px;
+	width: 800px;
+	text-align: center;
+	background-image: url('/assests/background.jpg');
+	background-repeat: repeat-x;
+	overflow: hidden;
+	-webkit-animation-name: scroll;
+	-webkit-animation-duration: 10s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+.menuItem {
+	margin: 0 0 15% 0;
+}
+ol{
+	margin: 15px;
+	padding: 0 25%;
+	list-style-position: outside;
+}
+li{
+	font-size: 1.5em;
+	color: red;
+	margin: 5px;
+}
+li:nth-child(1) {
+	/*font-size: 3em;*/
+	color: #ffcc00;
+	font-weight: bold;
+}
+li:nth-child(2) {
+	/*font-size: 2em;*/
+	color: silver;
+}
+li:nth-child(3) {
+	/*font-size: 1.6em;*/
+	color: #cc6600;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+h2{
+	font-size: 2em;
+}
+@-webkit-keyframes scroll {
+	from {background-position: initial;}
+	to {background-position: 500%;}
+}
+
+a:link {
+	text-decoration: none;
+	color: #3399ff;
+}
+a:visited {
+	color: #3399ff;
+}
+a:hover {
+	-webkit-animation-name: hover;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction: alternate;
+}
+@-webkit-keyframes hover {
+	from {font-size: inherit}
+	to {font-size: 200%}
 }
