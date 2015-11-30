@@ -10,10 +10,15 @@ var menuState = {
 	
 	create: function() {
 
-		var gameName = game.add.text(200, 100, 'Scatter Bags', {font: "60px Arial", fill: "#000000", align: "center"});
-		var startLabel = game.add.text(200, 400, 'Click anywhere to start', {font: "45px Arial", fill: "#000000", align: "center"});
+		var gameName = game.add.text(game.world.centerX, 100, 'Scatter Bags', {font: "60px Arial", fill: "#000000", align: "center"});
+		var startLabel = game.add.text(game.world.centerX, 200, 'Click anywhere to start', {font: "45px Arial", fill: "#000000", align: "center"});
+		var scoreLabel = game.add.text(game.world.centerX, 250, 'View High Scores', {font: "45px Arial", fill: "#000000", align: "center"});
 
-		game.input.onTap.add(onTap, this);
+		startLabel.inputEnabled = true;
+		scoreLabel.inputEnabled = true;
+
+		startLabel.events.onInputDown.add(start, this);
+		scoreLabel.events.onInputDown.add(scores, this);
 
 	},
 
@@ -25,5 +30,9 @@ var menuState = {
 
 	start: function() {
 		game.state.start('play');
+	}
+
+	scores: function() {
+		game.state.start('scores');
 	}
 };
