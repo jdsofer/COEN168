@@ -5,7 +5,11 @@ var theGame=function(game){
 	randomNumber=0;
 	score=0;
 	livesLeft=3;
+<<<<<<< HEAD:js/theGame.js
 	scoreText="";
+=======
+	scoreText;
+>>>>>>> origin/master:js/gameLogic.js
 }
 
 theGame.prototype={
@@ -181,5 +185,10 @@ theGame.prototype={
 	}*/
 };
 /*
+<<<<<<< HEAD:js/theGame.js
 this.game.state.add("NewGame", gameState);
 this.game.state.start("NewGame");*/
+=======
+game.state.add("NewGame", gameState);
+game.state.start("NewGame");*/
+>>>>>>> origin/master:js/gameLogic.js
