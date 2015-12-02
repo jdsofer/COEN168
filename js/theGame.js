@@ -4,53 +4,57 @@ var theGame=function(game){
 	currentBriefcases=[];
 	randomNumber=0;
 	score=0;
-	livesLeft=2;
-	scoreText;
+	livesLeft=3;
+	scoreText="";
 }
 
 theGame.prototype={
+	init: function(){
+		score=0;
+		livesLeft=3;
+	},
 	create: function(){
-		/*this.game.add.image(game.world.centerX, game.world.centerY, "background").anchor.set(0.6, 0.5);*/
+		this.game.add.image(this.game.world.centerX, this.game.world.centerY, "background").anchor.set(0.6, 0.5);
 
-		game.physics.startSystem(Phaser.Physics.P2JS);
-		game.physics.p2.gravity.y=200;
+		this.game.physics.startSystem(Phaser.Physics.P2JS);
+		this.game.physics.p2.gravity.y=200;
 
-		var spriteMaterial=game.physics.p2.createMaterial("spriteMaterial");
-		var worldMaterial=game.physics.p2.createMaterial("worldMaterial");
-		var contactMaterial=game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, {restitution: 0.6});
-		game.physics.p2.setWorldMaterial(worldMaterial);
+		var spriteMaterial=this.game.physics.p2.createMaterial("spriteMaterial");
+		var worldMaterial=this.game.physics.p2.createMaterial("worldMaterial");
+		var contactMaterial=this.game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, {restitution: 0.6});
+		this.game.physics.p2.setWorldMaterial(worldMaterial);
 
 		randomNumber=(Math.round(Math.random()*100)%4);
-		this.briefcase=game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
+		this.briefcase=this.game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
 
 		//Load Score
-		scoreText=game.add.text(100, 100, "Score: 0", {font: "35px Arial", fill: "#000000", align: "center"});
+		scoreText=this.game.add.text(100, 100, "Score: 0", {font: "35px Arial", fill: "#000000", align: "center"});
 		scoreText.anchor.setTo(0.5, 0.5);
 
 		//Load lives
 		var xPosition=30;
 		for(var i=0;i<3;i++){
-			this.life=game.add.sprite(xPosition, 30, "lifeIcon");
+			this.life=this.game.add.sprite(xPosition, 30, "lifeIcon");
 			xPosition+=50;
 			lifeIcons.push(this.life);
 		}
 
 		//Load ledges
-		this.leftLedge=game.add.sprite(200, 400, "conveyorBelt");
-		this.middleLedge=game.add.sprite(400, 300, "conveyorBelt");
-		this.rightLedge=game.add.sprite(600, 400, "conveyorBelt");
+		this.leftLedge=this.game.add.sprite(200, 400, "conveyorBelt");
+		this.middleLedge=this.game.add.sprite(400, 300, "conveyorBelt");
+		this.rightLedge=this.game.add.sprite(600, 400, "conveyorBelt");
 
 		//Load bins
-		this.redBaggageCart=game.add.sprite(10, 560, "redBaggageCart");
-		this.blueBaggageCart=game.add.sprite(200, 560, "blueBaggageCart");
-		this.greenBaggageCart=game.add.sprite(410, 560, "greenBaggageCart");
-		this.yellowBaggageCart=game.add.sprite(600, 560, "yellowBaggageCart");
+		this.redBaggageCart=this.game.add.sprite(10, 560, "redBaggageCart");
+		this.blueBaggageCart=this.game.add.sprite(200, 560, "blueBaggageCart");
+		this.greenBaggageCart=this.game.add.sprite(410, 560, "greenBaggageCart");
+		this.yellowBaggageCart=this.game.add.sprite(600, 560, "yellowBaggageCart");
 
 		//Hold all briefcases in an array
 		currentBriefcases[0]=this.briefcase;
 
 		//Enable physics
-		game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
+		this.game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
 
 		this.middleLedge.body.static=true;
 		this.leftLedge.body.static=true;
@@ -75,13 +79,13 @@ theGame.prototype={
 		this.rightLedge.inputEnabled=true;
 		this.rightLedge.input.useHandCursor=true;
 
-		game.time.events.loop((Phaser.Timer.SECOND*5), newFallingObject, this);
+		this.game.time.events.loop((Phaser.Timer.SECOND*5), newFallingObject, this);
 
 		function newFallingObject(){
 			randomNumber=(Math.round(Math.random()*100)%4);
 			this.briefcase=this.game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
 
-			game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
+			this.game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
 			this.briefcase.body.setMaterial(spriteMaterial);
 			this.briefcase.body.data.gravityScale=2.0;
 
@@ -90,18 +94,16 @@ theGame.prototype={
 	},
 	update: function(){
 		if(livesLeft==0){
-			console.log(score);
-			console.log(livesLeft);
-			game.state.start("GameOver", true, false, score);
+			this.game.state.start("GameOver", true, false, score);
 		}
 
-		if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)||(this.input.activePointer.x<(game.width/2)&&this.input.activePointer.isDown)){
+		if(this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)||(this.input.activePointer.x<(this.game.width/2)&&this.input.activePointer.isDown)){
 			this.leftLedge.body.angle-=5;
 			this.middleLedge.body.angle-=5;
 			this.rightLedge.body.angle-=5;
 		}
 
-		else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)||(this.input.activePointer.x>(game.width/2)&&this.input.activePointer.isDown)){
+		else if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)||(this.input.activePointer.x>(this.game.width/2)&&this.input.activePointer.isDown)){
 			this.leftLedge.body.angle+=5;
 			this.middleLedge.body.angle+=5;
 			this.rightLedge.body.angle+=5;
@@ -175,9 +177,9 @@ theGame.prototype={
 			}
 	},
 	/*launchGameOver: function(){
-		game.state.start("GameOver");
+		this.game.state.start("GameOver");
 	}*/
 };
 /*
-game.state.add("NewGame", gameState);
-game.state.start("NewGame");*/
+this.game.state.add("NewGame", gameState);
+this.game.state.start("NewGame");*/

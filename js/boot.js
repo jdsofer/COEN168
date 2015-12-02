@@ -4,12 +4,12 @@ var boot=function(game){
 
 boot.prototype={
 	preload: function(){
-		game.load.image("background", "assets/background.jpg");
+		this.game.load.image("background", "assets/background.jpg");
 	},
   	create: function(){
-		game.scale.scaleMode=Phaser.ScaleManager.SHOW_ALL;
-		game.scale.pageAlignHorizontally=true;
-		game.scale.pageAlignVertically=true;
-		game.state.start("Preload");
+		this.scale.scaleMode=Phaser.ScaleManager.SHOW_ALL;
+		this.scale.pageAlignHorizontally=true;
+		this.scale.pageAlignVertically=true;
+		this.game.state.start("Preload");
 	}
 }

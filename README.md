@@ -45,3 +45,5 @@ Going into this project, our group knew very little about game development and e
 - Potential: Add a high scores list.
 
 Special thanks to Tiffany Lu for the background image :)
+
+http://www.emanueleferonato.com/2014/08/28/phaser-tutorial-understanding-phaser-states/
