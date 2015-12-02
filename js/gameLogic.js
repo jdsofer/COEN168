@@ -1,68 +1,50 @@
-var game=new Phaser.Game(800, 600, Phaser.AUTO, 'gameWindow');
+var theGame=function(game){
+	briefcaseChoices=["redBriefcase", "blueBriefcase", "greenBriefcase", "yellowBriefcase"];
+	lifeIcons=[];
+	currentBriefcases=[];
+	randomNumber=0;
+	score=0;
+	livesLeft=2;
+	scoreText;
+}
 
-var briefcaseChoices=['redBriefcase', 'blueBriefcase', 'greenBriefcase', 'yellowBriefcase'];
-var lifeIcons=[];
-var currentBriefcases=[];
-var randomNumber=0;
-var counter=0;
-var livesLeft=3;
-var scoreText;
-
-var gameState={
-
-	preload: function(){
-		game.load.image('background', 'assets/background.jpg');
-		game.load.image('conveyorBelt', 'assets/conveyorBelt.png');
-		game.load.image('lifeIcon', 'assets/lifeIcon.png');
-
-		game.load.image('redBriefcase', 'assets/redBriefcase.png');
-		game.load.image('blueBriefcase', 'assets/blueBriefcase.png');
-		game.load.image('greenBriefcase', 'assets/greenBriefcase.png');
-		game.load.image('yellowBriefcase', 'assets/yellowBriefcase.png');
-
-		game.load.image('redBaggageCart', 'assets/redBaggageCart.png');
-		game.load.image('blueBaggageCart', 'assets/blueBaggageCart.png');
-		game.load.image('greenBaggageCart', 'assets/greenBaggageCart.png');
-		game.load.image('yellowBaggageCart', 'assets/yellowBaggageCart.png');
-	},
-
+theGame.prototype={
 	create: function(){
-
-		this.game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.6, 0.5);
+		/*this.game.add.image(game.world.centerX, game.world.centerY, "background").anchor.set(0.6, 0.5);*/
 
 		game.physics.startSystem(Phaser.Physics.P2JS);
 		game.physics.p2.gravity.y=200;
 
-		var spriteMaterial=game.physics.p2.createMaterial('spriteMaterial');
-		var worldMaterial=game.physics.p2.createMaterial('worldMaterial');
+		var spriteMaterial=game.physics.p2.createMaterial("spriteMaterial");
+		var worldMaterial=game.physics.p2.createMaterial("worldMaterial");
 		var contactMaterial=game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, {restitution: 0.6});
 		game.physics.p2.setWorldMaterial(worldMaterial);
 
 		randomNumber=(Math.round(Math.random()*100)%4);
-		this.briefcase=this.game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
+		this.briefcase=game.add.sprite(400, 0, briefcaseChoices[randomNumber]);
 
 		//Load Score
-		scoreText = game.add.text(100, 100, "Score: 0", {font: "35px Arial", fill: "#000000", align: "center"});
+		scoreText=game.add.text(100, 100, "Score: 0", {font: "35px Arial", fill: "#000000", align: "center"});
 		scoreText.anchor.setTo(0.5, 0.5);
 
 		//Load lives
-		var xPosition = 30;
-		for (var i = 0; i < 3; i++) {
-			this.life=this.game.add.sprite(xPosition, 30, 'lifeIcon');
-			xPosition += 50;
+		var xPosition=30;
+		for(var i=0;i<3;i++){
+			this.life=game.add.sprite(xPosition, 30, "lifeIcon");
+			xPosition+=50;
 			lifeIcons.push(this.life);
 		}
 
 		//Load ledges
-		this.leftLedge=this.game.add.sprite(200, 400, 'conveyorBelt');
-		this.middleLedge=this.game.add.sprite(400, 300, 'conveyorBelt');
-		this.rightLedge=this.game.add.sprite(600, 400, 'conveyorBelt');
+		this.leftLedge=game.add.sprite(200, 400, "conveyorBelt");
+		this.middleLedge=game.add.sprite(400, 300, "conveyorBelt");
+		this.rightLedge=game.add.sprite(600, 400, "conveyorBelt");
 
 		//Load bins
-		this.redBaggageCart=this.game.add.sprite(10, 560, 'redBaggageCart');
-		this.blueBaggageCart=this.game.add.sprite(200, 560, 'blueBaggageCart');
-		this.greenBaggageCart=this.game.add.sprite(410, 560, 'greenBaggageCart');
-		this.yellowBaggageCart=this.game.add.sprite(600, 560, 'yellowBaggageCart');
+		this.redBaggageCart=game.add.sprite(10, 560, "redBaggageCart");
+		this.blueBaggageCart=game.add.sprite(200, 560, "blueBaggageCart");
+		this.greenBaggageCart=game.add.sprite(410, 560, "greenBaggageCart");
+		this.yellowBaggageCart=game.add.sprite(600, 560, "yellowBaggageCart");
 
 		//Hold all briefcases in an array
 		currentBriefcases[0]=this.briefcase;
@@ -79,7 +61,7 @@ var gameState={
 		this.middleLedge.body.setMaterial(worldMaterial);
 		this.rightLedge.body.setMaterial(worldMaterial);
 
-		this.briefcase.body.data.gravityScale=3.5;
+		this.briefcase.body.data.gravityScale=2.0;
 
 		//Enable input for left ledge
 		this.leftLedge.inputEnabled=true;
@@ -101,16 +83,16 @@ var gameState={
 
 			game.physics.p2.enable([this.briefcase, this.leftLedge, this.middleLedge, this.rightLedge]);
 			this.briefcase.body.setMaterial(spriteMaterial);
-			this.briefcase.body.data.gravityScale=3.5;
+			this.briefcase.body.data.gravityScale=2.0;
 
 			currentBriefcases.push(this.briefcase);
 		}
 	},
-
 	update: function(){
 		if(livesLeft==0){
-			console.log(counter);
+			console.log(score);
 			console.log(livesLeft);
+			game.state.start("GameOver", true, false, score);
 		}
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)||(this.input.activePointer.x<(game.width/2)&&this.input.activePointer.isDown)){
@@ -137,12 +119,12 @@ var gameState={
 
 				if((Math.round(currentBriefcases[i].x)>10)&&(Math.round(currentBriefcases[i].x)<190)){
 					console.log(currentBriefcases[i].key);
-					if(currentBriefcases[i].key=='redBriefcase') {
-						counter+=1;
-						scoreText.setText("Score: " + counter);
+					if(currentBriefcases[i].key=="redBriefcase"){
+						score+=1;
+						scoreText.setText("Score: "+score);
 					}
 
-					else {
+					else{
 						lifeIcons[livesLeft-1].kill();
 						lifeIcons.splice(livesLeft-1, 1);
 						livesLeft-=1;
@@ -150,12 +132,12 @@ var gameState={
 				}
 
 				else if((Math.round(currentBriefcases[i].x)>200)&&(Math.round(currentBriefcases[i].x)<380)){
-					if(currentBriefcases[i].key=='blueBriefcase') {
-						counter+=1;
-						scoreText.setText("Score: " + counter);
+					if(currentBriefcases[i].key=="blueBriefcase"){
+						score+=1;
+						scoreText.setText("Score: "+score);
 					}
 
-					else {
+					else{
 						lifeIcons[livesLeft-1].kill();
 						lifeIcons.splice(livesLeft-1, 1);
 						livesLeft-=1;
@@ -163,12 +145,12 @@ var gameState={
 				}
 
 				else if((Math.round(currentBriefcases[i].x)>410)&&(Math.round(currentBriefcases[i].x)<590)){
-					if(currentBriefcases[i].key=='greenBriefcase') {
-						counter+=1;
-						scoreText.setText("Score: " + counter);
+					if(currentBriefcases[i].key=="greenBriefcase"){
+						score+=1;
+						scoreText.setText("Score: "+score);
 					}
 
-					else {
+					else{
 						lifeIcons[livesLeft-1].kill();
 						lifeIcons.splice(livesLeft-1, 1);
 						livesLeft-=1;
@@ -176,12 +158,12 @@ var gameState={
 				}
 
 				else if((Math.round(currentBriefcases[i].x)>600)&&(Math.round(currentBriefcases[i].x)<780)){
-					if(currentBriefcases[i].key=='yellowBriefcase') {
-						counter+=1;
-						scoreText.setText("Score: " + counter);
+					if(currentBriefcases[i].key=="yellowBriefcase"){
+						score+=1;
+						scoreText.setText("Score: "+score);
 					}
 
-					else {
+					else{
 						lifeIcons[livesLeft-1].kill();
 						lifeIcons.splice(livesLeft-1, 1);
 						livesLeft-=1;
@@ -190,10 +172,12 @@ var gameState={
 
 				currentBriefcases[i].kill();
 				currentBriefcases.splice(i, 1);
-				
 			}
-	}
+	},
+	/*launchGameOver: function(){
+		game.state.start("GameOver");
+	}*/
 };
-
-game.state.add('newGame', gameState);
-game.state.start('newGame');
+/*
+game.state.add("NewGame", gameState);
+game.state.start("NewGame");*/

@@ -2,29 +2,24 @@
 	margin: 0;
 	padding: 0;
 }
-body {
+body{
 	font-size: 20px;
 	font-family: arial, sans-serif;
 }
-
 #gameWindow{
 	margin: auto;
 	width: 800px;
 }
-.animate {
-	height: 600px;
-	width: 800px;
+.menu{
+	background-image: url("../assets/background.jpg");
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: 800px 600px;
+	margin: auto;
 	text-align: center;
-	background-image: url('/assests/background.jpg');
-	background-repeat: repeat-x;
-	overflow: hidden;
-	-webkit-animation-name: scroll;
-	-webkit-animation-duration: 10s;
-	-webkit-animation-iteration-count: infinite;
-	-webkit-animation-timing-function: linear;
 }
-.menuItem {
-	margin: 0 0 15% 0;
+.menuItem{
+	margin: 1% 0 1% 0;
 }
 ol{
 	margin: 15px;
@@ -36,46 +31,43 @@ li{
 	color: red;
 	margin: 5px;
 }
-li:nth-child(1) {
+li:nth-child(1){
 	/*font-size: 3em;*/
 	color: #ffcc00;
 	font-weight: bold;
 }
-li:nth-child(2) {
+li:nth-child(2){
 	/*font-size: 2em;*/
 	color: silver;
 }
-li:nth-child(3) {
+li:nth-child(3){
 	/*font-size: 1.6em;*/
 	color: #cc6600;
 }
-
-h1 {
+h1{
 	font-size: 3em;
 }
-
 h2{
 	font-size: 2em;
 }
-@-webkit-keyframes scroll {
+@-webkit-keyframes scroll{
 	from {background-position: initial;}
 	to {background-position: 500%;}
 }
-
-a:link {
+a:link{
 	text-decoration: none;
 	color: #3399ff;
 }
-a:visited {
+a:visited{
 	color: #3399ff;
 }
-a:hover {
+a:hover{
 	-webkit-animation-name: hover;
 	-webkit-animation-duration: 1s;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-direction: alternate;
 }
-@-webkit-keyframes hover {
+@-webkit-keyframes hover{
 	from {font-size: inherit}
 	to {font-size: 200%}
 }
