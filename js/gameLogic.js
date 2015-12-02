@@ -4,7 +4,7 @@ var theGame=function(game){
 	currentBriefcases=[];
 	randomNumber=0;
 	score=0;
-	livesLeft=2;
+	livesLeft=3;
 	scoreText;
 }
 
