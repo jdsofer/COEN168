@@ -20,23 +20,25 @@ gameOver.prototype={
 		var data = {"player": person,
 					"score": this.score 
 		}
-
 		console.log(data);
 
-    	if (person != null) {
-        	$.ajax({
-  				type: "POST",
-  				contentType: "application/json",
-  				async: false,
-  				url: "../index.php",
-  				data: JSON.stringify(data)
+		if (person != null) {
+			$.ajax({
+				type: "POST",
+				contentType: "application/json",
+				async: false,
+				url: "../index.php",
+				data: JSON.stringify(data)
 			});
-    	}
+		}
 
 	},
+
 	launchTheGame: function(){
 		this.game.state.start("TheGame");
+
 	},
+	
 	launchGameMenu: function(){
 		this.game.state.start("GameMenu");
 	}
