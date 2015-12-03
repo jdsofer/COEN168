@@ -27,7 +27,7 @@ gameOver.prototype={
 				type: "POST",
 				contentType: "application/json",
 				async: false,
-				url: "../index.php",
+				url: "index.php",
 				data: JSON.stringify(data)
 			});
 		}
@@ -38,7 +38,7 @@ gameOver.prototype={
 		this.game.state.start("TheGame");
 
 	},
-	
+
 	launchGameMenu: function(){
 		this.game.state.start("GameMenu");
 	}

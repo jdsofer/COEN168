@@ -23,7 +23,7 @@ highScores.prototype={
 	},
 	getScores: function(){
 		$.ajax({
-			url: "../index.php",
+			url: "index.php",
 			method: "GET",
 			async: false
 		}).done(function(result){
