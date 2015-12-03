@@ -23,7 +23,7 @@ highScores.prototype={
 	},
 	getScores: function(){
 		$.ajax({
-			url: "http://52.33.222.116/lab8/scores/index.php",
+			url: "../index.php",
 			method: "GET",
 			async: false
 		}).done(function(result){
