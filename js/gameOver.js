@@ -17,9 +17,11 @@ gameOver.prototype={
 		gameMenuButton.anchor.setTo(0.5,0.5);
 
 		var person = prompt("Enter your name!");
-		var data = {"player": person,
+
+		var data = {"name": person,
 					"score": this.score 
 		}
+		
 		console.log(data);
 
 		if (person != null) {
